@@ -390,6 +390,7 @@ type
     property ScrollToCaret: Boolean read FScrollToCaret write SetScrollToCaret;
     function GetWordAtPos(const X, Y: Single; out BeginWord, Line: Int64): string;
     procedure UpdateVisibleLayoutParams;
+    property Content: TControl read FContent;
   end;
 
 implementation
@@ -1357,6 +1358,7 @@ procedure TStyledMemo.DoContentPaint(Sender: TObject; Canvas: TCanvas; const ARe
     for I := Low(ARegion) to High(ARegion) do
     begin
       RectLine := ARegion[I];
+      RectLine.Width := Max(RectLine.Width, 10);
       if ((RectLine.Top < ARect.Top) and (RectLine.Bottom < ARect.Top)) or
          (RectLine.Top > ARect.Bottom)
        then

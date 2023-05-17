@@ -16,8 +16,10 @@ type
     procedure Memo1ChangeTracking(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Memo1Paint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
+    procedure Memo1ApplyStyleLookup(Sender: TObject);
   private
     FCodeSyntax: TCodeSyntax;
+    FMemoMarginsLeft: Single;
     procedure UpdateLayout(Sender: TObject; Layout: TTextLayout; const Index: Integer);
   public
     { Public declarations }
@@ -47,9 +49,20 @@ begin
   FCodeSyntax.Free;
 end;
 
+procedure TForm5.Memo1ApplyStyleLookup(Sender: TObject);
+begin
+  Memo1ChangeTracking(nil);
+end;
+
 procedure TForm5.Memo1ChangeTracking(Sender: TObject);
 begin
-  (Memo1.Presentation as TStyledMemo).UpdateVisibleLayoutParams;
+  var Memo :=(Memo1.Presentation as TStyledMemo);
+  Memo1.Canvas.Font.Assign(Memo1.TextSettings.Font);
+  var W := Ceil(Memo1.Canvas.TextWidth(Memo1.Lines.Count.ToString) + 20);
+  Memo1.StylesData['content_client.Padding.Left'] := W;
+  FMemoMarginsLeft := W;
+  Memo.UpdateVisibleLayoutParams;
+  Memo.RealignContent;
 end;
 
 procedure TForm5.Memo1Paint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
@@ -62,9 +75,9 @@ begin
     begin
       var Rect := Memo.LineObjects.Items[i].Rect;
       Rect.Left := 0;
-      Rect.Width := 35;
+      Rect.Width := FMemoMarginsLeft - 10;
       if Rect.Top < BRect.Height then
-        Rect.Bottom := Min(Rect.Bottom, Memo.Height - 8 {horz scrollbar height});
+        Rect.Bottom := Min(Rect.Bottom, Memo.Content.Height);
       Rect.Offset(2, 0);
       Rect.NormalizeRect;
       if (Rect.Top < 0) and (Rect.Bottom < 0) then
@@ -72,8 +85,14 @@ begin
       if (Rect.Top > BRect.Height) and (Rect.Bottom > BRect.Height) then
         Continue;
       Canvas.Fill.Color := TAlphaColorRec.White;
+      Canvas.Font.Assign(Memo1.TextSettings.Font);
       var HDelta: Single :=(100 / Memo.LineObjects.Items[i].Rect.Height * Rect.Height) / 100;
-      Canvas.FillText(Rect, (i + 1).ToString, False, 0.3 * HDelta, [], TTextAlign.Trailing);
+      if i = Memo.CaretPosition.Line then
+      begin
+        Canvas.FillRect(Rect, 0.1);
+        HDelta := 300;
+      end;
+      Canvas.FillText(Rect, (i + 1).ToString, False, 0.3 * HDelta, [], TTextAlign.Trailing, TTextAlign.Leading);
     end;
 end;
 
