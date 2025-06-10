@@ -6,7 +6,7 @@ uses
   FMX.Text.TextEditor, FMX.Text.LinesLayout, FMX.TextLayout, FMX.Memo.Style.New,
   FMX.Controls.Presentation, FMX.Text, FMX.ScrollBox.Style, FMX.Controls,
   FMX.Graphics, System.UITypes, Syntax.Code, FMX.Presentation.Messages,
-  System.Classes, System.Types, FMX.Types;
+  System.Classes, System.Types, FMX.Types, FMX.Memo;
 
 type
   TRichEditLinesLayout = class(TLinesLayout)
@@ -55,6 +55,7 @@ type
     procedure DragOver(const Data: TDragObject; const Point: TPointF; var Operation: TDragOperation); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X: Single; Y: Single); override;
     procedure PMSetStyleLookup(var AMessage: TDispatchMessageWithValue<string>); message PM_SET_STYLE_LOOKUP;
+    procedure MMLinesChanged(var Message: TDispatchMessage); message MM_MEMO_LINES_CHANGED;
     procedure PMInit(var Message: TDispatchMessage); message PM_INIT;
   public
     function GetSelectionRectTest: TRectF;
@@ -111,7 +112,7 @@ procedure TRichEditLinesLayout.InvalidateLinesLayouts;
 begin
   for var i := 0 to Count - 1 do
   begin
-    Items[i].InvalidateLayout;
+    Items[i].Invalidate;
     Items[i].RenderingMode := RenderingMode;
   end;
 end;
@@ -196,8 +197,16 @@ begin
   Result := GetSelectionRect;
 end;
 
+procedure TRichEditStyled.MMLinesChanged(var Message: TDispatchMessage);
+begin
+  inherited;
+  UpdateVisibleLayoutParams;
+end;
+
 procedure TRichEditStyled.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-begin    {
+begin
+  // sorry dragdrop in progress
+  {
   var R := GetSelectionRect;
   R.NormalizeRect;
   if (not FCancelDrag) and (not Self.GetSelection.IsEmpty) and R.Contains(TPointF.Create(X, Y)) then

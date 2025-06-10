@@ -24,7 +24,6 @@ type
     MemoPython: TMemo;
     procedure MemoPascalPresentationNameChoosing(Sender: TObject; var PresenterName: string);
     procedure FormCreate(Sender: TObject);
-    procedure MemoPascalChangeTracking(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,7 +36,7 @@ var
 implementation
 
 uses
-  FMX.BehaviorManager, FMX.Platform.Win;
+  FMX.BehaviorManager;
 
 {$R *.fmx}
 
@@ -70,13 +69,6 @@ begin
 
   if MemoPython.Presentation is TRichEditStyled then
     TRichEditStyled(MemoPython.Presentation).SetCodeSyntaxName('python', MemoPython.Font, MemoPython.FontColor);
-end;
-
-procedure TFormMain.MemoPascalChangeTracking(Sender: TObject);
-begin
-  // Updating the highlight when the text changes
-  if (Sender as TMemo).Presentation is TRichEditStyled then
-    TRichEditStyled((Sender as TMemo).Presentation).UpdateVisibleLayoutParams;
 end;
 
 end.

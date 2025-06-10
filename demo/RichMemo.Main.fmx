@@ -48,6 +48,8 @@ object FormMain: TFormMain
       StyleLookup = ''
       TabOrder = 0
       Text = 'Pascal'
+      ExplicitSize.cx = 59.000000000000000000
+      ExplicitSize.cy = 48.000000000000000000
       object MemoPascal: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         CheckSpelling = True
@@ -237,7 +239,6 @@ object FormMain: TFormMain
         StyledSettings = [Style, FontColor]
         TextSettings.Font.Family = 'Consolas'
         TextSettings.Font.Size = 14.000000000000000000
-        OnChangeTracking = MemoPascalChangeTracking
         Align = Client
         Size.Width = 955.000000000000000000
         Size.Height = 611.000000000000000000
@@ -261,6 +262,8 @@ object FormMain: TFormMain
       StyleLookup = ''
       TabOrder = 0
       Text = 'JSON'
+      ExplicitSize.cx = 55.000000000000000000
+      ExplicitSize.cy = 48.000000000000000000
       object MemoJSON: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         DataDetectorTypes = []
@@ -453,7 +456,6 @@ object FormMain: TFormMain
         StyledSettings = [Style, FontColor]
         TextSettings.Font.Family = 'Consolas'
         TextSettings.Font.Size = 14.000000000000000000
-        OnChangeTracking = MemoPascalChangeTracking
         Align = Client
         Size.Width = 955.000000000000000000
         Size.Height = 611.000000000000000000
@@ -477,6 +479,8 @@ object FormMain: TFormMain
       StyleLookup = ''
       TabOrder = 0
       Text = 'SQL'
+      ExplicitSize.cx = 46.000000000000000000
+      ExplicitSize.cy = 48.000000000000000000
       object MemoSQL: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         DataDetectorTypes = []
@@ -489,7 +493,6 @@ object FormMain: TFormMain
         StyledSettings = [Style, FontColor]
         TextSettings.Font.Family = 'Consolas'
         TextSettings.Font.Size = 14.000000000000000000
-        OnChangeTracking = MemoPascalChangeTracking
         Align = Client
         Size.Width = 955.000000000000000000
         Size.Height = 611.000000000000000000
@@ -513,6 +516,8 @@ object FormMain: TFormMain
       StyleLookup = ''
       TabOrder = 0
       Text = 'Python'
+      ExplicitSize.cx = 65.000000000000000000
+      ExplicitSize.cy = 48.000000000000000000
       object MemoPython: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         DataDetectorTypes = []
@@ -548,7 +553,6 @@ object FormMain: TFormMain
         StyledSettings = [Style, FontColor]
         TextSettings.Font.Family = 'Consolas'
         TextSettings.Font.Size = 14.000000000000000000
-        OnChangeTracking = MemoPascalChangeTracking
         Align = Client
         Size.Width = 955.000000000000000000
         Size.Height = 611.000000000000000000
@@ -572,6 +576,8 @@ object FormMain: TFormMain
       StyleLookup = ''
       TabOrder = 0
       Text = 'Markdown (in progress)'
+      ExplicitSize.cx = 168.000000000000000000
+      ExplicitSize.cy = 48.000000000000000000
       object MemoMD: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         DataDetectorTypes = []
@@ -864,7 +870,6 @@ object FormMain: TFormMain
         StyledSettings = [Style, FontColor]
         TextSettings.Font.Family = 'Consolas'
         TextSettings.Font.Size = 14.000000000000000000
-        OnChangeTracking = MemoPascalChangeTracking
         Align = Client
         Size.Width = 955.000000000000000000
         Size.Height = 611.000000000000000000
